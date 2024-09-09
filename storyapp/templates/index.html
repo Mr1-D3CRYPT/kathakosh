@@ -26,29 +26,29 @@
     <link rel="icon" href="favicon.ico" type="image/x-icon">
 
     <style>
-            #mc-form {
-        display: flex;
-        align-items: center;
-    }
+        #mc-form {
+            display: flex;
+            align-items: center;
+        }
 
-    .form__group {
-        margin-right: 10px;
-    }
+        .form__group {
+            margin-right: 10px;
+        }
 
-    .form__field {
-        padding: 10px;
-        font-size: 16px;
-    }
+        .form__field {
+            padding: 10px;
+            font-size: 16px;
+        }
 
-    .form__label {
-        display: none;
-    }
+        .form__label {
+            display: none;
+        }
 
-    button {
-        padding: 5px 10px;
-        font-size: 1px;
-        cursor: pointer;
-    }
+        button {
+            padding: 5px 10px;
+            font-size: 1px;
+            cursor: pointer;
+        }
         .wrap {
             position: relative;
             top: 50%;
@@ -139,9 +139,9 @@
             padding: 20px 0 0;
             width: 100%;
             max-width: 180px;
-            }
+        }
 
-            .form__field {
+        .form__field {
             font-family: inherit;
             width: 100%;
             border: none;
@@ -152,19 +152,19 @@
             padding: 7px 0;
             background: transparent;
             transition: border-color 0.2s;
-            }
+        }
 
-            .form__field::placeholder {
+        .form__field::placeholder {
             color: transparent;
-            }
+        }
 
-            .form__field:placeholder-shown ~ .form__label {
+        .form__field:placeholder-shown ~ .form__label {
             font-size: 17px;
             cursor: text;
             top: 20px;
-            }
+        }
 
-            .form__label {
+        .form__label {
             position: absolute;
             top: 0;
             display: block;
@@ -172,17 +172,17 @@
             font-size: 17px;
             color: #9b9b9b;
             pointer-events: none;
-            }
+        }
 
-            .form__field:focus {
+        .form__field:focus {
             padding-bottom: 6px;
             font-weight: 700;
             border-width: 3px;
             border-image: linear-gradient(to right, #116399, #38caef);
             border-image-slice: 1;
-            }
+        }
 
-            .form__field:focus ~ .form__label {
+        .form__field:focus ~ .form__label {
             position: absolute;
             top: 0;
             display: block;
@@ -190,28 +190,28 @@
             font-size: 17px;
             color: #38caef;
             font-weight: 700;
-            }
+        }
 
             /* reset input */
-            .form__field:required, .form__field:invalid {
+        .form__field:required, .form__field:invalid {
             box-shadow: none;
-            }
+        }
 
-            .inp_btn {
-                width: 145px;
-                height: 60px;
-                cursor: pointer;
-                color: #fff;
-                font-size: 13px;
-                border-radius: 1rem;
-                border: none;
-                position: relative;
-                background: #100720;
-                transition: 0.1s;
-                padding-bottom: 10px;
-            }
+        .inp_btn {
+            width: 145px;
+            height: 60px;
+            cursor: pointer;
+            color: #fff;
+            font-size: 13px;
+            border-radius: 1rem;
+            border: none;
+            position: relative;
+            background: #100720;
+            transition: 0.1s;
+            padding-bottom: 10px;
+        }
 
-            .inp_btn::after {
+        .inp_btn::after {
             content: '';
             width: 100%;
             height: 100%;
@@ -221,94 +221,94 @@
             position: absolute;
             left: 0;
             top: 0;
-            }
+        }
 
-            .inp_btn:active {
+        .inp_btn:active {
             transform: scale(0.9) rotate(3deg);
             background: radial-gradient( circle farthest-corner at 10% 20%,  rgba(255,94,247,1) 17.8%, rgba(2,245,255,1) 100.2% );
             transition: 0.5s;
-            }
+        }
 
 
-            .carousel-item {
-                height: 100vh;
-                min-height: 300px;
-                background: no-repeat center center scroll;
-                -webkit-background-size: cover;
-                -moz-background-size: cover;
-                -o-background-size: cover;
-                background-size: cover;
-                }
-                .carousel-caption {
-                bottom: 270px;
-                }
+        .carousel-item {
+            height: 100vh;
+            min-height: 300px;
+            background: no-repeat center center scroll;
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+            -o-background-size: cover;
+            background-size: cover;
+        }
+        .carousel-caption {
+            bottom: 270px;
+        }
 
-                .carousel-caption h5 {
-                font-size: 45px;
-                text-transform: uppercase;
-                letter-spacing: 2px;
-                margin-top: 25px;
-                }
+        .carousel-caption h5 {
+            font-size: 45px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-top: 25px;
+        }
 
-                .carousel-caption p {
-                width: 75%;
-                margin: auto;
-                font-size: 18px;
-                line-height: 1.9;
-                }
-
-
-                .navbar-nav .nav-item {
-      margin-right: 5px; /* Adjust this value as needed */
-    }
-
-    .navbar .nav-link {
-      color: #fff;
-      margin: 10px;
-
-      transition: color 0.3s ease-in-out;
-    }
+        .carousel-caption p {
+            width: 75%;
+            margin: auto;
+            font-size: 18px;
+            line-height: 1.9;
+        }
 
 
-    .navbar .nav-item.active .nav-link {
-      color: rgba(252, 61, 176, 0.6);
-      font-weight: bold;
-    }
+        .navbar-nav .nav-item {
+            margin-right: 5px; /* Adjust this value as needed */
+        }
 
-    .navbar .navbar-brand {
-      color: rgba(252, 61, 176, 0.6);
-      font-weight: bold;
-      text-transform: uppercase;
-    }
+        .navbar .nav-link {
+          color: #fff;
+          margin: 10px;
+
+          transition: color 0.3s ease-in-out;
+        }
 
 
-    .hoverable:before {
-      position: absolute;
-      pointer-events: none;
-      z-index: -1;
-      content: '';
-      top: 100%;
-      left: 5%;
-      height: 10px;
-      width: 90%;
-      opacity: 0;
-      background: radial-gradient(ellipse at center, rgba(255, 255, 255, 0.35) 0%, rgba(255, 255, 255, 0) 80%);
-      transition-duration: 0.3s;
-      transition-property: transform, opacity;
-    }
+        .navbar .nav-item.active .nav-link {
+          color: rgba(252, 61, 176, 0.6);
+          font-weight: bold;
+        }
 
-    .hoverable:hover,
-    .hoverable:active,
-    .hoverable:focus {
-      transform: translateY(-5px);
-    }
+        .navbar .navbar-brand {
+          color: rgba(252, 61, 176, 0.6);
+          font-weight: bold;
+          text-transform: uppercase;
+        }
 
-    .hoverable:hover:before,
-    .hoverable:active:before,
-    .hoverable:focus:before {
-      opacity: 1;
-      transform: translateY(-5px);
-    }
+
+        .hoverable:before {
+          position: absolute;
+          pointer-events: none;
+          z-index: -1;
+          content: '';
+          top: 100%;
+          left: 5%;
+          height: 10px;
+          width: 90%;
+          opacity: 0;
+          background: radial-gradient(ellipse at center, rgba(255, 255, 255, 0.35) 0%, rgba(255, 255, 255, 0) 80%);
+          transition-duration: 0.3s;
+          transition-property: transform, opacity;
+        }
+
+        .hoverable:hover,
+        .hoverable:active,
+        .hoverable:focus {
+          transform: translateY(-5px);
+        }
+
+        .hoverable:hover:before,
+        .hoverable:active:before,
+        .hoverable:focus:before {
+          opacity: 1;
+          transform: translateY(-5px);
+        }
     </style>
 </head>
 
@@ -319,7 +319,7 @@
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ml-auto">
               <li class="nav-item active">
-                <a class="nav-link" href="#">Home</a>
+                <a class="nav-link" href="">Home</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="#">History</a>
@@ -348,7 +348,7 @@
                     <h3>We are Katha Kosh. We create awesome stories!</h3>
 
                     <h1>
-                        Wanna hear one? Try here <span>&#9759;</span>
+                        Wanna hear a story? Try a topic or genre <span>&#9759;</span>
                         <br>
                     </h1>
 
