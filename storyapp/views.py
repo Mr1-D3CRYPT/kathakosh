@@ -39,6 +39,11 @@ def engine(request):
         user = request.user
         if user.is_authenticated:
             uname = User.objects.get(username=user)
+            history = History.objects.create(
+                reg=uname,
+                story=story,
+            )
+            history.save()
             return render(request, 'engine.html', {"uname": uname, "story": story})
         
         return render(request, 'engine.html', {"story": story})
@@ -51,15 +56,22 @@ def profile(request):
 
     # Check if the user is authenticated
     if user.is_authenticated:
+        # If the user is a superuser, log them out and set a message
+        if user.is_superuser:
+            messages.info(request, "Cannot login as a superuser")
+            logout(request)  # Logout the user
+            return redirect('/login_view')  # Redirect to the login page
+
         # Fetch the associated Account object
         try:
             account = Account.objects.get(reg=user)  # 'reg' is the ForeignKey to User
             # Render the profile template with the account details
+            print(user.username)
             return render(request, 'profile.html', {"account": account})
         except Account.DoesNotExist:
             return redirect('/login_view')  # Redirect if the account doesn't exist
     else:
-        return redirect('/login_view')  # Redirect to login if the user is not authenticated
+        return redirect('/login_view')  # Redirect to login if the user is not authenticate
 
 
 def login_view(request):
@@ -70,6 +82,9 @@ def login_view(request):
     if request.method == 'POST':
         username = request.POST.get("username")
         password = request.POST.get("password")
+        if username == "admin":
+            messages.info(request, "Cannot login as a superuser")
+            return redirect('/login_view')  # Redirect to the login page
         user = authenticate(request, username=username, password=password)
 
         if user is not None:
@@ -127,6 +142,9 @@ def history(request):
     user = request.user 
     if user.is_authenticated:
         uname = User.objects.get(username=user)    
-        return render(request, 'history.html', {"uname":uname})
+        # Fetch the user's story history from the History model
+        stories = History.objects.filter(reg=user).order_by('id')  # Order by id (most recent first)
+        
+        return render(request, 'history.html', {"uname": uname, "stories": stories})
     
     return render(request, 'history.html')
