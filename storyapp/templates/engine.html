@@ -160,10 +160,29 @@
         <div class="chat-box">
             <h2>Generated Story</h2>
 
-            <div class="message bot-message">
-                {{ story }}
-            </div>    
+            <div class="message bot-message" id="story-container"></div>
 
+            <script>
+                function typeWriter(text, elementId, speed) {
+                    let i = 0;
+                    const element = document.getElementById(elementId);
+                    
+                    function type() {
+                        if (i < text.length) {
+                            element.innerHTML += text.charAt(i);
+                            i++;
+                            setTimeout(type, speed);
+                        }
+                    }
+                    type();
+                }
+            
+                document.addEventListener("DOMContentLoaded", function() {
+                    // Start the typing effect on page load, passing the story text and container ID
+                    typeWriter('{{ story|escapejs }}', "story-container", 5);  // Adjust speed (ms) as needed
+                });
+            </script>
+            
             <div class="input-container">
                 <button onclick="responsiveVoice.speak('{{ story|escapejs }}');" class="send-button">Recite Story</button>
             </div>

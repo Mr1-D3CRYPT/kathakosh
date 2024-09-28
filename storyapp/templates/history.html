@@ -168,7 +168,7 @@
                         {% with forloop.counter as story_num %}
                         <li class="story-item">
                             <h3>Story {{ story_num }}</h3>
-                            <p>{{ story.story }}</p>
+                            <p>{{ story.story|linebreaks }}</p>
                         </li>
                         {% endwith %}
                     {% endfor %}

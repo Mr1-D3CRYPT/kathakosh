@@ -30,7 +30,7 @@ def engine(request):
             account = Account.objects.get(reg=user)
             age_group = account.age        
         # Generate the story (Assuming you're using an AI model for this part)
-        prompt = f"Create a story for kids aged {age_group} on the genre/topic {choice} for more than 500 words. Each time create a unique story."
+        prompt = f"Create a story for kids aged {age_group} on the genre/topic {choice} for more than 500 words. Each time create a unique story. The moral of the story at last as well"
         
         model = palm.GenerativeModel('gemini-pro')
         response = model.generate_content(prompt)
