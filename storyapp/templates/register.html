@@ -178,6 +178,8 @@
                 </div>
                 {% endif %}
 
+                <span style="color: rgb(244, 73, 0);">Note : details cannot be changed once entered</span>
+
                 <form action="/register" method="post">
                     {% csrf_token %}
                     
@@ -194,7 +196,7 @@
                     <input type="email" id="email" name="email" pattern="[^@]+@[^@]+\.[a-zA-Z]{2,6}" placeholder="Enter your email" required>
 
                     <label for="age">Age</label>
-                    <input type="number" id="age" name="age" placeholder="Enter your age" required>
+                    <input type="number" id="age" name="age" placeholder="Enter your age" min="1" max="110" required>
 
                     <input type="submit" value="Register">
                 </form>

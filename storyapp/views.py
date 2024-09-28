@@ -1,7 +1,9 @@
-from django.shortcuts import redirect, render
+from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.models import User
 from django.contrib import messages
+
+
 from .models import Account,History
 
 import google.generativeai as palm
@@ -10,11 +12,6 @@ palm.configure(api_key='AIzaSyAT1VQThfonpDb9Rexw__6aipCcrgcrxv0')
 
 
 def index(request):
-    #model = palm.GenerativeModel('gemini-pro')
-    #prompt = "Create one story for kids of 5 years age on the genre adventure. Each time create an unique story"
-    #response = model.generate_content(prompt)
-    #response.text 
-
     user = request.user 
     if user.is_authenticated:
         uname = User.objects.get(username=user)    
@@ -22,18 +19,48 @@ def index(request):
 
     return render(request, 'index.html')
 
+def engine(request):
+    if request.method == 'POST':
+        choice = request.POST.get('choice')
+        age_group = 10
+        user = request.user 
+        if user.is_authenticated:
+            uname = User.objects.get(username=user)
+            # Fetch age from the Account model
+            account = Account.objects.get(reg=user)
+            age_group = account.age        
+        # Generate the story (Assuming you're using an AI model for this part)
+        prompt = f"Create a story for kids aged {age_group} on the genre/topic {choice} for more than 500 words. Each time create a unique story."
+        
+        model = palm.GenerativeModel('gemini-pro')
+        response = model.generate_content(prompt)
+        story = response.text
+        
+        user = request.user
+        if user.is_authenticated:
+            uname = User.objects.get(username=user)
+            return render(request, 'engine.html', {"uname": uname, "story": story})
+        
+        return render(request, 'engine.html', {"story": story})
+
+    return render(request, 'engine.html')
+
 
 def profile(request):
-    user = request.user 
+    user = request.user  # Get the logged-in user
+
+    # Check if the user is authenticated
     if user.is_authenticated:
-        uname = User.objects.get(username=user)
+        # Fetch the associated Account object
         try:
-            return render(request, 'profile.html', {"uname":uname})
-        except user.DoesNotExist:
-            return redirect('/login_view')
+            account = Account.objects.get(reg=user)  # 'reg' is the ForeignKey to User
+            # Render the profile template with the account details
+            return render(request, 'profile.html', {"account": account})
+        except Account.DoesNotExist:
+            return redirect('/login_view')  # Redirect if the account doesn't exist
     else:
-        return redirect('/login_view')
-    
+        return redirect('/login_view')  # Redirect to login if the user is not authenticated
+
 
 def login_view(request):
     user = request.user
@@ -49,8 +76,8 @@ def login_view(request):
             login(request, user)
             return redirect('/profile')
         else:
-            message = 'Invalid username or password. Please try again.'
-            return render(request, 'login.html', {"message": message})
+            messages.error(request, '*user doesnot exists! try creating one')
+            return redirect('/login_view')
     return render(request, 'login.html')
 
 
@@ -95,7 +122,7 @@ def register(request):
                 return redirect('/profile')
 
         return render(request, 'register.html')
-
+    
 def history(request):
     user = request.user 
     if user.is_authenticated:

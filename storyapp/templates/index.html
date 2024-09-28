@@ -357,10 +357,11 @@
                     </h1>
 
                     <div class="home-content__subscribe">
-                        <form id="mc-form" class="group" novalidate="true">
+                        <form id="mc-form" class="group" action="engine" method="POST" novalidate="true">
+                            {% csrf_token %}
                             <div class="form__group field">
                                 <input type="input" class="form__field" placeholder="Name" required="true">
-                                <label for="name" class="form__label">Type in here..</label>
+                                <label for="name" class="form__label" name="chioce" id="choice">Type in here..</label>
                             </div>
                             <button class="inp_btn">generate</button>
                         </form>

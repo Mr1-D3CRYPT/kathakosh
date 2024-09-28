@@ -4,7 +4,7 @@
 <html class="no-js" lang="en">
 <head>
     <meta charset="utf-8">
-    <title>katha kosh - Login</title>
+    <title>Katha Kosh - Chat</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- CSS -->
@@ -55,75 +55,63 @@
             padding: 10px 20px;
         }
 
-        .form-container {
+        .chat-container {
             display: flex;
-            justify-content: center;
-            align-items: flex-start; /* Align form to top */
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
             padding: 20px;
+            width: 90%; /* Increased width for more content */
+            max-width: 1200px; /* Container max width for larger screens */
+            margin: 0 auto;
         }
 
-        .form-box {
+        .chat-box {
             background-color: rgba(0, 0, 0, 0.9);
             padding: 40px;
             border-radius: 10px;
             box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
             width: 100%;
-            max-width: 400px;
         }
 
-        .form-box h2 {
+        .chat-box h2 {
             text-align: center;
             color: rgba(252, 61, 176, 0.6);
             margin-bottom: 30px;
         }
 
-        .form-box label {
-            font-size: 16px;
-            margin-bottom: 10px;
-            display: block;
-            color: #fff;
-        }
-
-        .form-box input[type="text"],
-        .form-box input[type="password"] {
-            width: 100%;
-            padding: 10px;
-            margin: 10px 0;
-            border: none;
-            border-radius: 5px;
+        .chat-box .message {
             background-color: #333;
+            border-radius: 5px;
+            padding: 15px;
+            margin-bottom: 10px;
             color: #fff;
+            font-size: 16px;
         }
 
-        .form-box input[type="submit"] {
-            width: 100%;
-            padding: 12px;
+        .user-message {
+            align-self: flex-start;
+            background-color: rgba(0, 132, 255, 0.6);
+        }
+
+        .bot-message {
+            align-self: flex-end;
+            background-color: rgba(252, 61, 176, 0.6);
+        }
+
+        .send-button {
+            margin-top: 20px;
+            padding: 12px 20px;
             background-color: rgba(252, 61, 176, 0.6);
             border: none;
             border-radius: 5px;
             color: #fff;
-            font-size: 16px;
             cursor: pointer;
-            margin-top: 20px;
+            font-size: 16px;
         }
 
-        .form-box input[type="submit"]:hover {
+        .send-button:hover {
             background-color: rgba(252, 61, 176, 0.8);
-        }
-
-        .form-box .register-link {
-            text-align: center;
-            margin-top: 15px;
-            color: #fff;
-        }
-
-        .form-box .register-link a {
-            color: rgba(252, 61, 176, 0.6);
-            text-decoration: none;
-        }
-
-        .form-box .register-link a:hover {
-            text-decoration: underline;
         }
 
         .home-social {
@@ -139,58 +127,47 @@
             position: relative;
         }
     </style>
+
+    <script src="https://code.responsivevoice.org/responsivevoice.js?key=dUNWN49w"></script>
 </head>
 
 <body>
 
-    <nav class="navbar navbar-expand-lg navbar-light fixed-top">
-        <div class="container">
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav ml-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="index">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="history">History</a>
-                    </li>
-                    <li class="nav-item active">
-                        <a class="nav-link" href="register">Register</a>
-                    </li>
-                </ul>
-            </div>
+<nav class="navbar navbar-expand-lg navbar-light fixed-top">
+    <div class="container">
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="index">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="history">History</a>
+                </li>
+                <li class="nav-item">
+                    {% if user.is_authenticated %}
+                    <a class="nav-link" href="profile">Hello {{ uname }}!</a>
+                    {% else %}
+                    <a class="nav-link" href="login_view">Login/Register</a>
+                    {% endif %}
+                </li>
+            </ul>
         </div>
-    </nav>
+    </div>
+</nav>
 
-    <main class="s-home">
-        <div class="form-container">
-            <div class="form-box">
-                <h2>Login</h2>
-                {% if messages %}
-                <div class="message-container">
-                    {% for message in messages %}
-                        <div style="text-align: center;color: red;">
-                            {{ message }}
-                        </div>
-                    {% endfor %}
-                </div>
-                {% endif %}
-                <form action="/login_view" method="post">
-                    {% csrf_token %}
-                    
-                    <label for="username">Username</label>
-                    <input type="text" id="username" name="username" placeholder="Enter your username" required>
+<main class="s-home">
+    <div class="chat-container">
+        <div class="chat-box">
+            <h2>Generated Story</h2>
 
-                    <label for="password">Password</label>
-                    <input type="password" id="password" name="password" placeholder="Enter your password" required>
+            <div class="message bot-message">
+                {{ story }}
+            </div>    
 
-                    <input type="submit" value="Login">
-                </form>
-
-                <div class="register-link">
-                    <span>Don't have an account?</span>
-                    <a href="/register">Register here</a>
-                </div>
+            <div class="input-container">
+                <button onclick="responsiveVoice.speak('{{ story|escapejs }}');" class="send-button">Recite Story</button>
             </div>
+            
         </div>
 
         <ul class="home-social">
@@ -206,7 +183,8 @@
             <span>Copyright 2024</span> 
             <span>Design by <a href="https://github.com/Mr1-D3CRYPT" target="_blank">Ashish</a></span>
         </div>
+    </div>
+</main>
 
-    </main>
 </body>
 </html>
