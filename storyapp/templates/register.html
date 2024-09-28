@@ -4,7 +4,7 @@
 <html class="no-js" lang="en">
 <head>
     <meta charset="utf-8">
-    <title>katha kosh - Login</title>
+    <title>katha kosh - Register</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- CSS -->
@@ -58,7 +58,7 @@
         .form-container {
             display: flex;
             justify-content: center;
-            align-items: flex-start; /* Align form to top */
+            align-items: flex-start; /* Adjusts the form to align from the top */
             padding: 20px;
         }
 
@@ -85,6 +85,8 @@
         }
 
         .form-box input[type="text"],
+        .form-box input[type="email"],
+        .form-box input[type="number"],
         .form-box input[type="password"] {
             width: 100%;
             padding: 10px;
@@ -111,18 +113,18 @@
             background-color: rgba(252, 61, 176, 0.8);
         }
 
-        .form-box .register-link {
+        .form-box .login-link {
             text-align: center;
             margin-top: 15px;
             color: #fff;
         }
 
-        .form-box .register-link a {
+        .form-box .login-link a {
             color: rgba(252, 61, 176, 0.6);
             text-decoration: none;
         }
 
-        .form-box .register-link a:hover {
+        .form-box .login-link a:hover {
             text-decoration: underline;
         }
 
@@ -154,7 +156,7 @@
                         <a class="nav-link" href="history">History</a>
                     </li>
                     <li class="nav-item active">
-                        <a class="nav-link" href="register">Register</a>
+                        <a class="nav-link" href="login_view">Login</a>
                     </li>
                 </ul>
             </div>
@@ -164,8 +166,19 @@
     <main class="s-home">
         <div class="form-container">
             <div class="form-box">
-                <h2>Login</h2>
-                <form action="/login_view" method="post">
+                <h2>Register</h2>
+
+                {% if messages %}
+                <div class="message-container">
+                    {% for message in messages %}
+                        <div style="text-align: center;color: red;">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                </div>
+                {% endif %}
+
+                <form action="/register" method="post">
                     {% csrf_token %}
                     
                     <label for="username">Username</label>
@@ -174,12 +187,21 @@
                     <label for="password">Password</label>
                     <input type="password" id="password" name="password" placeholder="Enter your password" required>
 
-                    <input type="submit" value="Login">
+                    <label for="contact_no">Contact Number</label>
+                    <input type="number" id="contact_no" pattern="[6-9]{1}[0-9]{9}" name="contact_no" placeholder="Enter your contact number" required>
+
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" pattern="[^@]+@[^@]+\.[a-zA-Z]{2,6}" placeholder="Enter your email" required>
+
+                    <label for="age">Age</label>
+                    <input type="number" id="age" name="age" placeholder="Enter your age" required>
+
+                    <input type="submit" value="Register">
                 </form>
 
-                <div class="register-link">
-                    <span>Don't have an account?</span>
-                    <a href="/register">Register here</a>
+                <div class="login-link">
+                    <span>Already have an account?</span>
+                    <a href="/login_view">Login here</a>
                 </div>
             </div>
         </div>
@@ -192,7 +214,7 @@
                 <a href="https://github.com/Mr1-D3CRYPT" target="_blank"><i class="fab fa-github" aria-hidden="true"></i><span>Github</span></a>
             </li>
         </ul>
-
+        
         <div class="home-copyright">
             <span>Copyright 2024</span> 
             <span>Design by <a href="https://github.com/Mr1-D3CRYPT" target="_blank">Ashish</a></span>
