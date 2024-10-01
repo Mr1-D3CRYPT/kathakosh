@@ -78,21 +78,32 @@ def login_view(request):
     user = request.user
     if user.is_authenticated:
         return redirect('/profile')
-    
+
     if request.method == 'POST':
         username = request.POST.get("username")
         password = request.POST.get("password")
+        
         if username == "admin":
             messages.info(request, "Cannot login as a superuser")
             return redirect('/login_view')  # Redirect to the login page
+        
+        # Check if the username exists
+        try:
+            user_obj = User.objects.get(username=username)
+        except User.DoesNotExist:
+            messages.error(request, '*User does not exist! Try creating one.')
+            return redirect('/login_view')
+
+        # If the user exists, authenticate with the provided password
         user = authenticate(request, username=username, password=password)
 
         if user is not None:
             login(request, user)
             return redirect('/profile')
         else:
-            messages.error(request, '*user doesnot exists! try creating one')
+            messages.error(request, '*Incorrect password! Please try again.')
             return redirect('/login_view')
+
     return render(request, 'login.html')
 
 
