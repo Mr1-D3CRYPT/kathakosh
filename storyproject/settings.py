@@ -82,16 +82,15 @@ DATABASES = {
     'default' : dj_database_url.parse(os.environ.get("DATABASE_URL"))
 }
 
-##DATABASES = {
-    #'default': {
-        #'ENGINE': 'django.db.backends.sqlite3',
-       # 'ENGINE': 'django.db.backends.postgresql',
-      #  'NAME': 'kathakosh',
-     #   'USER': 'postgres',
-    #    'PASSWORD': 'AaroIndian',
-   #     'HOST': 'localhost',   
-  #      'PORT': '5432',
- #   }
+#DATABASES = {
+#    'default': {
+#        'ENGINE': 'django.db.backends.postgresql',
+#        'NAME': 'kathakosh',
+#        'USER': 'postgres',
+#        'PASSWORD': 'AaroIndian',
+#        'HOST': 'localhost',   
+#        'PORT': '5432',
+#    }
 #}
 
 
